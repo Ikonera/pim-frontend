@@ -1,7 +1,7 @@
 {
-  "name": "react-ts-skeleton",
+  "name": "pim-backend",
   "version": "0.6.5",
-  "description": "React config with Typescript & Webpack",
+  "description": "PIM frontend",
   "scripts": {
     "dev": "webpack serve --open",
     "watch": "webpack --watch",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Ikonera/react-ts-skeleton.git"
+    "url": "git+https://github.com/Ikonera/pim-backend.git"
   },
   "author": "Ikonera",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Ikonera/react-ts-skeleton/issues"
+    "url": "https://github.com/Ikonera/pim-backend/issues"
   },
-  "homepage": "https://github.com/Ikonera/react-ts-skeleton#readme",
+  "homepage": "https://github.com/Ikonera/pim-backend#readme",
   "dependencies": {
     "@material-ui/core": "^4.12.1",
     "@material-ui/icons": "^4.11.2",
