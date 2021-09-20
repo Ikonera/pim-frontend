@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin")
 const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 const { DefinePlugin } = require("webpack")
 
-const APP_NAME = "react-ts-skeleton"
+const APP_NAME = "The Ark"
 
 module.exports = {
 	mode: "development",
