@@ -118,7 +118,7 @@ const App: React.FC = () => (
 					</button>
 					<button
 						type="button"
-						onClick={form.reset}
+						onClick={event => form.reset}
 						disabled={submitting || pristine}
 					>
 					Reset
