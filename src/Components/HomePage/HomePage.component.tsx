@@ -1,31 +1,12 @@
-import axios, { AxiosError } from "axios"
-import React, { FunctionComponent, useState, useEffect, useContext } from "react"
+import React, { FunctionComponent } from "react"
 import { ThingsList } from "../ThingsList/ThingsList.component"
-import {
-	IDomainContext, DomainContext,
-    IReignContext, ReignContext,
-    IBranchContext, BranchContext,
-    IClassContext, ClassContext,
-    IOrderContext, OrderContext,
-    IFamilyContext, FamilyContext,
-    IGenusContext, GenusContext,
-    ISpecieContext, SpecieContext
-} from "../../Contexts/Contexts.ctx"
 
 export const HomePage: FunctionComponent = () => {
 
-    const { allDomains } = useContext(DomainContext) as IDomainContext,
-        { allReigns } = useContext(ReignContext) as IReignContext,
-        { allBranches } = useContext(BranchContext) as IBranchContext,
-        { allClasses } = useContext(ClassContext) as IClassContext,
-        { allOrders } = useContext(OrderContext) as IOrderContext,
-        { allFamilies } = useContext(FamilyContext) as IFamilyContext,
-        { allGenuses } = useContext(GenusContext) as IGenusContext,
-        { allSpecies } = useContext(SpecieContext) as ISpecieContext
 
     return (
         <main>
-            <section>
+            {/* <section>
                 <div>
                     <h2>Home page</h2>
                 </div>
@@ -66,7 +47,7 @@ export const HomePage: FunctionComponent = () => {
                     <h3>Espèces</h3>
                     <ThingsList things={allSpecies} context="Espèces" />
                 </div>
-            </section>
+            </section> */}
         </main>
     )
 

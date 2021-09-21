@@ -17,16 +17,16 @@ export const RouterView: FunctionComponent = () => {
     return (
         <Switch>
             {/* <Route exact path="/taxinomy/newCategorization" component={Form} /> */}
-            <Route exact path="/taxinomy/domain" component={DomainsPage} />
-            <Route exact path="/taxinomy/reign" component={ReignsPage} />
-            <Route exact path="/taxinomy/branch" component={BranchesPage} />
-            <Route exact path="/taxinomy/class" component={ClassesPage} />
-            <Route exact path="/taxinomy/order" component={OrdersPage} />
-            <Route exact path="/taxinomy/family" component={FamiliesPage} />
-            <Route exact path="/taxinomy/genus" component={GenusesPage} />
-            <Route exact path="/taxinomy/specie" component={SpeciesPage} />
+            <Route exact path="/taxinomy/domains" component={DomainsPage} />
+            <Route exact path="/taxinomy/reigns" component={ReignsPage} />
+            <Route exact path="/taxinomy/branches" component={BranchesPage} />
+            <Route exact path="/taxinomy/classes" component={ClassesPage} />
+            <Route exact path="/taxinomy/orders" component={OrdersPage} />
+            <Route exact path="/taxinomy/families" component={FamiliesPage} />
+            <Route exact path="/taxinomy/genuses" component={GenusesPage} />
+            <Route exact path="/taxinomy/species" component={SpeciesPage} />
             <Route exact path="/taxinomy/categorization" component={SpecieCategorization} />
-            <Route exact path="/" component={HomePage} />
+            <Route exact path="/" component={SpecieCategorization} />
         </Switch>
     )
 

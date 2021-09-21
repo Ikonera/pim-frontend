@@ -1,6 +1,8 @@
+import { Input } from "@material-ui/core";
 import axios from "axios";
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { Form, Field } from "react-final-form";
+import { IThing } from "src/Interfaces/IThings.interface";
 import Styles from "../../Styles";
 import SelectInput from "./SelectInput";
 import TextAreaInput from "./TextAreaInput";
@@ -20,36 +22,46 @@ const onSubmit = async (values: Values) => {
 	window.alert(JSON.stringify(values, undefined, 2));
 };
 
-const getAllDomains = async () => {
-	try {
-		const response = await axios.get(`${process.env.REACT_APP_API_ENDPOINT as string}/domain/allDomains`)
-		return response.data
-	}
-	catch (error: any) {
-		alert(error.response.data)
-	}
-}
-
 
 export const SpecieCategorization: FunctionComponent = () => {
 
-    const getAllDomains = axios.get(`${process.env.REACT_APP_API_ENDPOINT as string}/domain/allDomains`),
-		getAllOrders = axios.get(`${process.env.REACT_APP_API_ENDPOINT as string}/order/allOrders`),
-		getAllReigns = axios.get(`${process.env.REACT_APP_API_ENDPOINT as string}/reign/allReigns`),
-		getAllClasses = axios.get(`${process.env.REACT_APP_API_ENDPOINT as string}/class/allClasses`),
-		getAllFamilies = axios.get(`${process.env.REACT_APP_API_ENDPOINT as string}/family/allFamilies`),
-		getAllGenuses = axios.get(`${process.env.REACT_APP_API_ENDPOINT as string}/genus/allGenuses`),
-		getAllSpecies = axios.get(`${process.env.REACT_APP_API_ENDPOINT as string}/specie/allSpecies`)
+    const getAllDomains = async () => {
+		try {
+			const response = await axios.get(`${process.env.REACT_APP_API_ENDPOINT}/domain/allDomains`)
+			setDomains(response.data)
+		}
+		catch (error: any) {
+			alert(error.response.data.message)
+		}
+	},getReignsUnderDomain = async (domainId: string) => {
+		try {
+			const response = await axios.get(`${process.env.REACT_APP_API_ENDPOINT}/reign/reignsUnderDomain/${domainId}`)
+			setReigns(response.data)
+		}
+		catch (error: any) {
+			alert(error.response.data.message)
+		}
+	},getBranchesUnderReign = async (reignId: string) => {
+		try {
+			const response = await axios.get(`${process.env.REACT_APP_API_ENDPOINT}/branch/branchesUnderReign/${reignId}`)
+			setDomains(response.data)
+		}
+		catch (error: any) {
+			alert(error.response.data.message)
+		}
+	}
 	
-	const [domains] = useState(getAllDomains)
-	const [orders] = useState(getAllOrders)
-	const [reigns] = useState(getAllReigns)
-	const [reignClasses] = useState(getAllClasses)
-	const [families] = useState(getAllFamilies)
-	const [genuses] = useState(getAllGenuses)
-	const [species] = useState(getAllSpecies)
+	const [domains, setDomains] = useState<Array<IThing>>([]),
+		[reigns, setReigns] = useState<Array<IThing>>([]),
+		[branches, setBranch] = useState<Array<IThing>>([]),
+		[classes, setClasses] = useState<Array<IThing>>([]),
+		[orders, setOrders] = useState<Array<IThing>>([]),
+		[families, setFamilies] = useState<Array<IThing>>([]),
+		[genuses, setGenuses] = useState<Array<IThing>>([])
 
-
+	useEffect(() => {
+		getAllDomains()
+	}, [])
 
 	return (
 		<Styles>
@@ -72,59 +84,79 @@ export const SpecieCategorization: FunctionComponent = () => {
 				</div>
 				<div>
 					<label>Domaine</label>
-					<Field<string> name="domaineEspece" component={SelectInput}>
-					<option />
-					<option>Domaine 1</option>
-					<option>Domaine 2</option>
-					<option>Domaine 3</option>
-					</Field>
+					<Field<string> name="domaineEspece"
+						render={({input, meta, rest}) => (
+							<select {...input} {...rest} onChange={event => getReignsUnderDomain(event.target.value)}>
+								<option />
+								{
+									domains.map((domain: IThing) => (
+										<option key={domain.id} value={domain.id}>{domain.name}</option>
+									))
+								}
+							</select>
+						)}
+					/>
 				</div>
-				<div>
+				{(reigns.length === 0)
+				? <p>Veuillez sélectionner un domaine de référence</p>
+				: <div>
 					<label>Règne</label>
 					<Field<string> name="regneEspece" component={SelectInput}>
-					<option />
-					<option>Règne 1</option>
-					<option>Règne 2</option>
-					<option>Règne 3</option>
+						<option />
+						{
+							reigns.map((reign: IThing) => (
+								<option key={reign.id} value={reign.id}>{reign.name}</option>
+							))
+						}
 					</Field>
-				</div>
-				<div>
+				</div>}
+				{(values.regneEspece === undefined)
+				? <p>Veuillez sélectionner un règne de référence</p>
+				: <div>
 					<label>Embranchement</label>
 					<Field<string> name="embranchementEspece" component={SelectInput}>
-					<option />
-					<option>Embranchement 1</option>
-					<option>Embranchement 2</option>
-					<option>Embranchement 3</option>
+						<option />
+						<option>Embranchement 1</option>
+						<option>Embranchement 2</option>
+						<option>Embranchement 3</option>
 					</Field>
-				</div>
-				<div>
+				</div>}
+				{(values.embranchementEspece === undefined)
+				? <p>Veuillez sélectionner une branche de référence</p>
+				: <div>
 					<label>Classe</label>
 					<Field<string> name="classeEspece" component={SelectInput}>
-					<option />
-					<option>Classe 1</option>
-					<option>Classe 2</option>
-					<option>Classe 3</option>
+						<option />
+						<option>Classe 1</option>
+						<option>Classe 2</option>
+						<option>Classe 3</option>
 					</Field>
-				</div>
-				<div>
+				</div>}
+				{(values.classeEspece === undefined)
+				? <p>Veuillez sélectionner une classe de référence</p>
+				: <div>
 					<label>Ordre</label>
 					<Field<string> name="ordreEspece" component={SelectInput}>
-					<option />
-					<option>Ordre 1</option>
-					<option>Ordre 2</option>
-					<option>Ordre 3</option>
+						<option />
+						<option>Ordre 1</option>
+						<option>Ordre 2</option>
+						<option>Ordre 3</option>
 					</Field>
-				</div>
-				<div>
+				</div>}
+				{(values.ordreEspece === undefined)
+				? <p>Veuillez sélectionner un ordre de référence</p>
+				: <div>
 					<label>Famille</label>
 					<Field<string> name="familleEspece" component={SelectInput}>
-					<option />
-					<option>Famille 1</option>
-					<option>Famille 2</option>
-					<option>Famille 3</option>
+						<option />
+						<option>Famille 1</option>
+						<option>Famille 2</option>
+						<option>Famille 3</option>
 					</Field>
-				</div>
-				<div>
+				</div>}
+				{(values.familleEspece === undefined)
+				? <p>Veuillez sélectionner une famille de référence</p>
+				: <div>
 					<label>Gène</label>
 					<Field<string> name="geneEspece" component={SelectInput}>
 						<option />
@@ -132,15 +164,17 @@ export const SpecieCategorization: FunctionComponent = () => {
 						<option>Gène 2</option>
 						<option>Gène 3</option>
 					</Field>
-				</div>
-				<div>
+				</div>}
+				{(values.geneEspece === undefined)
+				? <p>Veuillez sélectionner un gène de référence</p>
+				: <div>
 					<label>Espèce</label>
 					<Field
 						name="espece"
 						component={TextAreaInput}
 						placeholder="Plus d'infos sur l'espèce"
 					/>
-				</div>
+				</div>}
 				<div className="buttons">
 					<button type="submit" disabled={submitting || pristine}>
 						Submit
