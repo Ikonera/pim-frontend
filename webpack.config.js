@@ -63,7 +63,6 @@ module.exports = () => {
 			new DefinePlugin({
 				__APPNAME__: APP_NAME
 			}),
-			new DefinePlugin(envKeys),
 			new CleanWebpackPlugin(),
 			new HtmlWebpackPlugin({
 				title: APP_NAME,
