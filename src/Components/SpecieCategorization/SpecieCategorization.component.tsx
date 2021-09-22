@@ -17,11 +17,6 @@ interface Values {
 	notes?: string;
 }
 
-const onSubmit = async (values: Values) => {
-	await sleep(300);
-	window.alert(JSON.stringify(values, undefined, 2));
-};
-
 
 export const SpecieCategorization: FunctionComponent = () => {
 
@@ -97,7 +92,19 @@ export const SpecieCategorization: FunctionComponent = () => {
 		catch (error: any) {
 			alert(error.response.data.message)
 		}
-	}
+	},createNewSpecie = async (specieName: string, specieGenusId: number, specieInfos: string) => {
+		try {
+			const response = await axios.post(`${process.env.REACT_APP_API_ENDPOINT}/specie/newSpecie`, {
+				newSpecieName: specieName,
+				genusId: specieGenusId,
+				infos: specieInfos
+			})
+		} catch (error: any) {
+			alert(error.response.data.message)
+		}
+	}, onSubmit = async (values: any) => {
+		createNewSpecie(values.nomEspece ,values.geneEspece, values.infos)
+	};
 	
 	const [domains, setDomains] = useState<Array<IThing>>([]),
 		[reigns, setReigns] = useState<Array<IThing>>([]),
@@ -231,7 +238,7 @@ export const SpecieCategorization: FunctionComponent = () => {
 				: <div>
 					<label>Espèce</label>
 					<Field
-						name="espece"
+						name="infos"
 						component={TextAreaInput}
 						placeholder="Plus d'infos sur l'espèce"
 					/>
@@ -241,8 +248,7 @@ export const SpecieCategorization: FunctionComponent = () => {
 						Submit
 					</button>
 					<button
-						type="button"
-						onClick={event => form.reset}
+						type="reset"
 						disabled={submitting || pristine}
 					>
 					Reset

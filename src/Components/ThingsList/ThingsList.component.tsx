@@ -50,13 +50,89 @@ export const ThingsList: FunctionComponent<{ things: Array<IThing>, context: str
             return searchFor !== '' ? setTemp([...things.filter(thing => thing.name.toLowerCase().includes(searchFor))]) : setTemp([...things])
         },
         dataSliced = temp.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-        rowsToHide = rowsPerPage - dataSliced.length
+        rowsToHide = rowsPerPage - dataSliced.length,
+        contextSwitchColumnsArray = (context: string) => {
+            switch (context) {
+                case "Espèces":
+                    return (
+                        ["nom", "infos", "risque", "actions"].map((header: string, idx: number) => (
+                            <TableCell key={idx} className={classes.cell}>
+                                <Typography variant="h6">{header}</Typography>
+                            </TableCell>
+                        ))
+                    )
+            
+                default:
+                    return (
+                        ["nom"].map((header: string, idx: number) => (
+                            <TableCell key={idx} className={classes.cell}>
+                                <Typography variant="h6">{header}</Typography>
+                            </TableCell>
+                        ))
+                    )
+            }
+        },
+        contextSwitchRowsArray = (context: string) => {
+            switch (context) {
+                case "Espèces":
+                    return (
+                        dataSliced.map((thing: IThing, idx: number) => (
+                            <TableRow key={idx} hover className={classes.row}>
+                                <TableCell className={classes.cell}>
+                                    <Typography>
+                                        {thing.name}
+                                    </Typography>
+                                </TableCell>
+                                <TableCell className={classes.cell}>
+                                    <Typography>
+                                        {thing.infos}
+                                    </Typography>
+                                </TableCell>
+                                <TableCell className={classes.cell}>
+                                    <Typography>
+                                        {(thing.danger) ? "En danger !" : "RAS"}
+                                    </Typography>
+                                </TableCell>
+                                <TableCell className={classes.cell}>
+                                    <Button variant="contained" onClick={event => (thing.danger) ? setSpecieStatusToDanger(thing.name, false) : setSpecieStatusToDanger(thing.name, true)}>
+                                    {(thing.danger) ? "danger écarté" : "déclarer à risque"}
+                                    </Button>
+                                </TableCell>
+                            </TableRow>
+                        ))
+                    )
+            
+                default:
+                    return (
+                        dataSliced.map((thing: any, idx: number) => (
+                            <TableRow key={idx} hover className={classes.row}>
+                                <TableCell className={classes.cell}>
+                                    <Typography>
+                                        {thing.name}
+                                    </Typography>
+                                </TableCell>
+                            </TableRow>
+                        ))
+                    )
+            }
+        },
+        setSpecieStatusToDanger = async (specieName: string, isInDanger: boolean) => {
+            try {
+                const response = await axios.put(`${process.env.REACT_API_API_ENDPOINT}/specie/updateStatus`, {
+                    specieName: specieName,
+                    status: isInDanger
+                })
+                alert(response.data)
+            }
+            catch (error: any) {
+                console.log(error.response.data.message)
+            }
+        }
 
 
     useEffect(() => {
         setTemp(things)
     }, [things.length])
-
 
     return (
         <section className="table" >
@@ -75,57 +151,23 @@ export const ThingsList: FunctionComponent<{ things: Array<IThing>, context: str
                     <Table>
                         <TableHead>
                             <TableRow className={classes.row}>
-                                {["Nom"].map((header: string, idx: number) =>
-                                (
-                                    <TableCell key={idx} className={classes.cell}>
-                                        <Typography variant="h6">{header}</Typography>
-                                    </TableCell>
-                                ))}
+                                { contextSwitchColumnsArray(context) }
                             </TableRow>
                         </TableHead>
                         <TableBody>
-						{dataSliced.length === 0 
-							? (
-								<TableRow>
-									<TableCell colSpan={5}>
-										<Typography>
-											Aucune donnée trouvée dans ce contexte: { context }
-										</Typography>
-									</TableCell>
-								</TableRow>
-							)
-							: (
-							dataSliced.map((thing: any, idx: number) => (
-                                    <TableRow key={idx} hover className={classes.row}>
-                                        <TableCell className={classes.cell}>
+                            {dataSliced.length === 0 
+                                ? (
+                                    <TableRow>
+                                        <TableCell colSpan={5}>
                                             <Typography>
-                                                {thing.name}
+                                                Aucune donnée trouvée dans ce contexte: { context }
                                             </Typography>
                                         </TableCell>
-                                        {/* <TableCell className={classes.cell}>
-                                            <Typography>
-                                                {user.sAMAccountName}
-                                            </Typography>
-                                        </TableCell>
-                                        <TableCell className={classes.cell}>
-                                            <Typography>
-                                                {user.mail}
-                                            </Typography>
-                                        </TableCell> */}
-                                        {/* <TableCell className={classes.cell}>
-                                            <Button variant="outlined" onClick={event => handleChangeAccountStatus(event, user.cn, getOrgUnitFromUser(user.dn), user.userAccountControl === "512" ? "514" : "512")}>
-                                                {user.userAccountControl === "512" || user.userAccountControl === "544" || user.userAccountControl === "66048" ? "désa" : 'A'}ctiver le compte
-                                            </Button>
-                                            <Button>
-                                                <Link to={`/edit/${getOrgUnitFromUser(user.dn)}/${user.cn}`}>Edition</Link>
-                                            </Button>
-                                            <Button onClick={event => getOrgUnitFromUser(user.dn)}>
-                                                Voir
-                                            </Button>
-                                        </TableCell> */}
                                     </TableRow>
-                                ))
-										) }
+                                )
+                                : (
+                                    contextSwitchRowsArray(context)
+                            )}
                             {rowsToHide > 0 && (
                                 <TableRow>
                                     <TableCell colSpan={4} style={{ height: rowsToHide * 5 + "vh" }} ></TableCell>
