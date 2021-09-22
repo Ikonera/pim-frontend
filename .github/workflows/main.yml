@@ -1,0 +1,50 @@
+# This is a basic workflow to help you get started with Actions
+
+name: TEST_CD
+
+on:
+  push:
+    branches: [ master ]
+
+  workflow_dispatch:
+
+jobs:
+  Test_and_deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      SERVER_IP: ${{ secrets.SERVER_IP }}
+      SERVER_SSH_PRIVKEY: ${{ secrets.SERVER_SSH_PRIVKEY }}
+      SERVER_SSH_PUBKEY: ${{ secrets.SERVER_SSH_PUBKEY }}
+      SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install NodeJs
+        uses: actions/setup-node@v2.4.0
+        with:
+          node-version: 14.x
+        
+      - name: Install utilities
+        run: |
+          sudo apt-get install zip unzip
+
+      - name: Install app packages & build
+        run: |
+          npm i
+          npm run build
+        env:
+          REACT_APP_API_ENDPOINT: ${{ secrets.REACT_APP_API_ENDPOINT }}
+      
+      - name: Making SSH connection effective
+        shell: sh
+        run: |
+          sudo chmod +x ./ssh_keys.sh
+          ./ssh_keys.sh
+
+      - name: Deploy React app via SSH
+        shell: sh
+        run: |
+          ssh -i deploy_key "${SERVER_USERNAME}@${SERVER_IP}" \
+          "~/update-backend.sh"

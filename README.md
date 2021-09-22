@@ -1,6 +1,6 @@
-# React-TS-Skeleton
+# React app The Ark Project
 ## Description
-Template repo for ReactTS projects.
+A React cross-subject project app for school. 
 
 ## Available scripts
 
@@ -18,7 +18,3 @@ npm run dev
 ```shell
 npm run build
 ```
-
-## Coding style
-
-> *soon*
