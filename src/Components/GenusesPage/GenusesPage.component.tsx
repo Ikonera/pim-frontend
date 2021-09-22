@@ -9,7 +9,7 @@ export const GenusesPage: FunctionComponent = () => {
 
     const getAllGenuses = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API_ENDPOINT}/genus/allGenuses`)
+            const response = await axios.get(`https://pim.gabriel-millet.fr/api/v1/genus/allGenuses`)
             if (response.data.length !== 0) {
                 setAllGenuses(response.data)
                 console.log(response.data)

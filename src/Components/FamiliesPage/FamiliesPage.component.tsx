@@ -9,7 +9,7 @@ export const FamiliesPage: FunctionComponent = () => {
 
     const getAllFamilies = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API_ENDPOINT}/family/allFamilies`)
+            const response = await axios.get(`https://pim.gabriel-millet.fr/api/v1/family/allFamilies`)
             if (response.data.length !== 0) {
                 setAllFamilies(response.data)
                 console.log(response.data)

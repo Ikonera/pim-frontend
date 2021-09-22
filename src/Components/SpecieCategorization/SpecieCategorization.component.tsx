@@ -22,7 +22,7 @@ export const SpecieCategorization: FunctionComponent = () => {
 
     const getAllDomains = async () => {
 		try {
-			const response = await axios.get(`${process.env.REACT_APP_API_ENDPOINT}/domain/allDomains`)
+			const response = await axios.get(`https://pim.gabriel-millet.fr/api/v1/domain/allDomains`)
 			setDomains(response.data)
 		}
 		catch (error: any) {
@@ -31,7 +31,7 @@ export const SpecieCategorization: FunctionComponent = () => {
 	},getReignsUnderDomain = async (domainId: string) => {
 		try {
 			console.log(domainId)
-			const response = await axios.get(`${process.env.REACT_APP_API_ENDPOINT}/reign/reignsUnderDomain/${domainId}`)
+			const response = await axios.get(`https://pim.gabriel-millet.fr/api/v1/reign/reignsUnderDomain/${domainId}`)
 			setReigns(response.data)
 		}
 		catch (error: any) {
@@ -40,7 +40,7 @@ export const SpecieCategorization: FunctionComponent = () => {
 	},getBranchesUnderReign = async (reignId: string) => {
 		try {
 			console.log(reignId)
-			const response = await axios.get(`${process.env.REACT_APP_API_ENDPOINT}/branch/branchesUnderReign/${reignId}`)
+			const response = await axios.get(`https://pim.gabriel-millet.fr/api/v1/branch/branchesUnderReign/${reignId}`)
 			setBranches(response.data)
 			console.log(branches)
 			
@@ -51,7 +51,7 @@ export const SpecieCategorization: FunctionComponent = () => {
 	},getClassesUnderBranch = async (branchId: string) => {
 		try {
 			console.log(branchId)
-			const response = await axios.get(`${process.env.REACT_APP_API_ENDPOINT}/class/classesUnderBranch/${branchId}`)
+			const response = await axios.get(`https://pim.gabriel-millet.fr/api/v1/class/classesUnderBranch/${branchId}`)
 			setClasses(response.data)
 			console.log(classes)
 			
@@ -62,7 +62,7 @@ export const SpecieCategorization: FunctionComponent = () => {
 	},getOrdersUnderClass = async (classId: string) => {
 		try {
 			console.log(classId)
-			const response = await axios.get(`${process.env.REACT_APP_API_ENDPOINT}/order/ordersUnderClass/${classId}`)
+			const response = await axios.get(`https://pim.gabriel-millet.fr/api/v1/order/ordersUnderClass/${classId}`)
 			setOrders(response.data)
 			console.log(orders)
 			
@@ -73,7 +73,7 @@ export const SpecieCategorization: FunctionComponent = () => {
 	},getFamiliesUnderOrder = async (orderId: string) => {
 		try {
 			console.log(orderId)
-			const response = await axios.get(`${process.env.REACT_APP_API_ENDPOINT}/family/familiesUnderOrder/${orderId}`)
+			const response = await axios.get(`https://pim.gabriel-millet.fr/api/v1/family/familiesUnderOrder/${orderId}`)
 			setFamilies(response.data)
 			console.log(families)
 			
@@ -84,7 +84,7 @@ export const SpecieCategorization: FunctionComponent = () => {
 	},getGenusesUnderFamily = async (familyId: string) => {
 		try {
 			console.log(familyId)
-			const response = await axios.get(`${process.env.REACT_APP_API_ENDPOINT}/genus/genusesUnderFamily/${familyId}`)
+			const response = await axios.get(`https://pim.gabriel-millet.fr/api/v1/genus/genusesUnderFamily/${familyId}`)
 			setGenuses(response.data)
 			console.log(genuses)
 			
@@ -94,7 +94,7 @@ export const SpecieCategorization: FunctionComponent = () => {
 		}
 	},createNewSpecie = async (specieName: string, specieGenusId: number, specieInfos: string) => {
 		try {
-			const response = await axios.post(`${process.env.REACT_APP_API_ENDPOINT}/specie/newSpecie`, {
+			const response = await axios.post(`https://pim.gabriel-millet.fr/api/v1/specie/newSpecie`, {
 				newSpecieName: specieName,
 				genusId: specieGenusId,
 				infos: specieInfos

@@ -9,7 +9,7 @@ export const ReignsPage: FunctionComponent = () => {
 
     const getAllReigns = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API_ENDPOINT}/reign/allReigns`)
+            const response = await axios.get(`https://pim.gabriel-millet.fr/api/v1/reign/allReigns`)
             if (response.data.length !== 0) {
                 setAllReigns(response.data)
                 console.log(response.data)

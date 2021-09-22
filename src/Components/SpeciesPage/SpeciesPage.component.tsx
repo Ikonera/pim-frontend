@@ -10,7 +10,7 @@ export const SpeciesPage: FunctionComponent = () => {
 
     const getAllSpecies = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API_ENDPOINT}/specie/allSpecies`)
+            const response = await axios.get(`https://pim.gabriel-millet.fr/api/v1/specie/allSpecies`)
             if (response.data.length !== 0) {
                 setAllSpecies(response.data)
                 console.log(response.data)

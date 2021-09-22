@@ -9,7 +9,7 @@ export const ClassesPage: FunctionComponent = () => {
 
     const getAllClasses = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API_ENDPOINT}/class/allClasses`)
+            const response = await axios.get(`https://pim.gabriel-millet.fr/api/v1/class/allClasses`)
             if (response.data.length !== 0) {
                 setAllClasses(response.data)
                 console.log(response.data)

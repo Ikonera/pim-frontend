@@ -9,7 +9,7 @@ export const DomainsPage: FunctionComponent = () => {
 
     const getAllDomains = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API_ENDPOINT}/domain/allDomains`)
+            const response = await axios.get(`https://pim.gabriel-millet.fr/api/v1/domain/allDomains`)
             if (response.data.length !== 0) {
                 setAllDomains(response.data)
                 console.log(response.data)

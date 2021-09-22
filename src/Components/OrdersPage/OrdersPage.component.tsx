@@ -9,7 +9,7 @@ export const OrdersPage: FunctionComponent = () => {
 
     const getAllOrders = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API_ENDPOINT}/order/allOrders`)
+            const response = await axios.get(`https://pim.gabriel-millet.fr/api/v1/order/allOrders`)
             if (response.data.length !== 0) {
                 setAllOrders(response.data)
                 console.log(response.data)
