@@ -4,7 +4,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 const { DefinePlugin } = require("webpack")
 const dotenv = require("dotenv")
 
-const APP_NAME = "The Ark"
+const APP_NAME = "The Ark | PIM project"
 
 module.exports = () => {
 
