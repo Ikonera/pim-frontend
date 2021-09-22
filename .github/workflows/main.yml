@@ -44,5 +44,5 @@ jobs:
       - name: Deploy React app via SSH
         run: |
           zip ${PWD}/dist.zip ${PWD}/dist -r
-          scp -i deploy_key ${PWD}/dist.zip ${SERVER_USERNAME}@${SERVER_IP}:/home/${SERVER_USERNAME} \
-          "${PWD}/update-backend.sh"
+          scp -i deploy_key ${PWD}/dist.zip ${SERVER_USERNAME}@${SERVER_IP}:/home/${SERVER_USERNAME}
+          ssh -i deploy_key ${SERVER_USERNAME}@${SERVER_IP} "./update-backend.sh"
