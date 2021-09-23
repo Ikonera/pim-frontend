@@ -35,6 +35,18 @@ const btnPrimary = btn("#4f93ce", "#285f8f");
 
 export default styled.div`
   font-family: sans-serif;
+  
+  header, aside {
+    text-align:center;
+  }
+
+  aside div {
+    flex-direction:row;display:flex;width:100%;border-bottom: 1px lightgrey solid;box-shadow: 0px 5px 5px lightgrey
+  }
+  
+  aside div p {
+    flex: 1 1 0;
+  }
 
   h1 {
     text-align: center;
