@@ -35,11 +35,7 @@ const btnPrimary = btn("#4f93ce", "#285f8f");
 
 export default styled.div`
   font-family: sans-serif;
-
-  header, aside {
-    text-align:center;
-  }
-
+  
   h1 {
     text-align: center;
     color: #222;
@@ -65,12 +61,11 @@ export default styled.div`
   }
 
   form {
-    max-width: 500px;
-    margin: 10px auto;
-    border: 1px solid #ccc;
-    padding: 20px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    border-radius: 3px;
+    max-width:500px;
+    margin:10px auto;
+    padding:20px;
+    box-shadow:13px 13px 20px #cbced1,-13px -13px 20px #ffffff;
+    border-radius:20px;
 
     & > div {
       display: flex;
