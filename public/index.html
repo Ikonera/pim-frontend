@@ -1,12 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title><%= htmlWebpackPlugin.options.title %></title>
+    <title>
+        <%= htmlWebpackPlugin.options.title %>
+    </title>
 </head>
+
 <body>
+    <style>
+        aside div {
+            flex-direction: row;
+            display: flex;
+            width: 100%;
+            border-bottom: 1px lightgrey solid;
+            box-shadow: 0px 5px 5px lightgrey
+        }
+
+        aside div p {
+            flex: 1 1 0;
+            text-align: center;
+        }
+
+
+
+        aside div p:hover {
+            background-color: lightgrey
+        }
+
+        aside div p a {
+            text-decoration: none;
+            color: black;
+        }
+
+        header h1 {
+            text-align: center;
+        }
+    </style>
     <div id="root"></div>
 </body>
+
 </html>
