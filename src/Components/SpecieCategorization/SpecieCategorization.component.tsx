@@ -103,6 +103,7 @@ export const SpecieCategorization: FunctionComponent = () => {
 			alert(error.response.data.message)
 		}
 	}, onSubmit = async (values: any) => {
+		console.log(values)
 		createNewSpecie(values.nomEspece ,values.geneEspece, values.infos)
 	};
 	
