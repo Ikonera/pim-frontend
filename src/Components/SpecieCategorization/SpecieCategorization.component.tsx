@@ -92,18 +92,18 @@ export const SpecieCategorization: FunctionComponent = () => {
 		catch (error: any) {
 			alert(error.response.data.message)
 		}
-	},createNewSpecie = async (specieName: string, specieGenusId: number, specieInfos: string) => {
+	},createNewSpecie = async (specieName: string, specieGenusId: string, specieInfos: string) => {
 		try {
 			const response = await axios.post(`https://pim.gabriel-millet.fr/api/v1/specie/newSpecie`, {
 				newSpecieName: specieName,
-				genusId: specieGenusId,
+				genusId: parseInt(specieGenusId, 10),
 				infos: specieInfos
 			})
 		} catch (error: any) {
 			alert(error.response.data.message)
 		}
 	}, onSubmit = async (values: any) => {
-		console.log(values)
+		console.log(typeof values.geneEspece)
 		createNewSpecie(values.nomEspece ,values.geneEspece, values.infos)
 	};
 	
@@ -124,7 +124,7 @@ export const SpecieCategorization: FunctionComponent = () => {
 		<h1>Catégorisation de l'espèce</h1>
 		<p>
 			Vous pouvez catégoriser ici l'espèce que vous voulez. Les listes
-			déroulantes se réduiront en fonction de ce que vous avez sélectionné
+			déroulantes s'actualiseront en fonction de ce que vous avez sélectionné !
 		</p>
 		<Form
 			onSubmit={onSubmit}
